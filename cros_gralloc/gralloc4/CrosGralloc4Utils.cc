@@ -18,6 +18,10 @@
 
 #include "cros_gralloc/cros_gralloc_helpers.h"
 
+#ifndef DRM_FORMAT_P030
+#define DRM_FORMAT_P030 fourcc_code('P', '0', '3', '0')
+#endif
+
 using aidl::android::hardware::graphics::common::PlaneLayout;
 using aidl::android::hardware::graphics::common::PlaneLayoutComponent;
 using aidl::android::hardware::graphics::common::PlaneLayoutComponentType;
@@ -250,6 +254,28 @@ const std::unordered_map<uint32_t, std::vector<PlaneLayout>>& GetPlaneLayoutsMap
                                         .offsetInBits = 22,
                                         .sizeInBits = 10}},
                               .sampleIncrementInBits = 32,
+                              .horizontalSubsampling = 2,
+                              .verticalSubsampling = 2,
+                      }}},
+
+                    {DRM_FORMAT_P030,
+                     {{
+                              .components = {{.type = android::gralloc4::PlaneLayoutComponentType_Y,
+                                              .offsetInBits = 0,
+                                              .sizeInBits = 10}},
+                              .sampleIncrementInBits = 0, // 3 samples per 32-bit word: not constant
+                              .horizontalSubsampling = 1,
+                              .verticalSubsampling = 1,
+                      },
+                      {
+                              .components =
+                                      {{.type = android::gralloc4::PlaneLayoutComponentType_CB,
+                                        .offsetInBits = 0,
+                                        .sizeInBits = 10},
+                                       {.type = android::gralloc4::PlaneLayoutComponentType_CR,
+                                        .offsetInBits = 10,
+                                        .sizeInBits = 10}},
+                              .sampleIncrementInBits = 0, // 3 samples per 32-bit word: not constant
                               .horizontalSubsampling = 2,
                               .verticalSubsampling = 2,
                       }}},

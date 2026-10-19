@@ -115,6 +115,9 @@ static const struct planar_layout *layout_from_format(uint32_t format)
 	case DRM_FORMAT_P010:
 		return &biplanar_yuv_p010_layout;
 
+	case DRM_FORMAT_P030:
+		return &biplanar_yuv_420_layout;
+
 	case DRM_FORMAT_ABGR1555:
 	case DRM_FORMAT_ABGR4444:
 	case DRM_FORMAT_ARGB1555:
